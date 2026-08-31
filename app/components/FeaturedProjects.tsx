@@ -79,25 +79,25 @@ export default function FeaturedProjects() {
         </div>
       </div>
 
-      <div className="md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-6">
+      <div className="md:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:pr-6 md:[mask-image:linear-gradient(to_right,black_0,black_calc(100%-6rem),transparent_100%)]">
         <div
           ref={trackRef}
-          className="flex flex-col md:flex-row gap-5 md:gap-8 md:flex-nowrap md:will-change-transform"
+          className="flex flex-col md:flex-row gap-5 md:gap-6 md:flex-nowrap md:will-change-transform"
         >
           {featured.map((p) => (
             <article
               key={p.slug}
-              className="group relative rounded-2xl border border-border bg-card p-6 md:w-[min(560px,80vw)] md:shrink-0 hover:shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-shadow mx-6 md:mx-0"
+              className="group relative rounded-2xl bg-card p-4 md:w-[min(520px,78vw)] md:shrink-0 shadow-[0_1px_2px_rgba(0,0,0,0.03),0_8px_24px_-12px_rgba(0,0,0,0.08)] mx-6 md:mx-0"
             >
               <div
-                className={`aspect-[16/10] w-full rounded-xl bg-gradient-to-br ${p.accent} mb-6 overflow-hidden relative`}
+                className={`aspect-[16/10] w-full rounded-lg bg-gradient-to-br ${p.accent} mb-5 overflow-hidden relative`}
               >
                 {p.cover ? (
                   <Image
                     src={p.cover}
                     alt={p.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 560px"
+                    sizes="(max-width: 768px) 100vw, 520px"
                     className="object-cover"
                   />
                 ) : (
