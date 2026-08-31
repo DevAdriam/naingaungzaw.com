@@ -50,10 +50,10 @@ export default function CVPage() {
 
         <article
           id="cv-sheet"
-          className="rounded-2xl border border-border bg-card p-8 md:p-12 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_20px_60px_-24px_rgba(0,0,0,0.16)] print:rounded-none print:border-0 print:shadow-none print:p-0"
+          className="rounded-2xl border border-border bg-card p-6 md:p-12 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_20px_60px_-24px_rgba(0,0,0,0.16)] print:rounded-none print:border-0 print:shadow-none print:p-0"
         >
           <header className="pb-6 border-b border-border">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div>
                 <h2 className="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
                   Naing Aung Zaw
@@ -62,11 +62,11 @@ export default function CVPage() {
                   Backend-Focused Full Stack Developer · {age} · Yangon, Myanmar
                 </p>
               </div>
-              <div className="text-[12px] text-muted leading-relaxed text-right">
+              <div className="text-[12px] text-muted leading-relaxed text-left md:text-right space-y-0.5">
                 <div>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-foreground transition-colors break-all"
                   >
                     {contact.email}
                   </a>

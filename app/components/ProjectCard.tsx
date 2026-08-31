@@ -106,7 +106,7 @@ export default function ProjectCard({
             )}
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/20 opacity-70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
 
           {label && (
             <div className="absolute top-5 right-5 z-10">

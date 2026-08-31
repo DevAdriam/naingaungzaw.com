@@ -52,14 +52,19 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[12px] text-muted mb-8"
+          className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[12px] text-muted mb-8 whitespace-nowrap"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-          Backend-focused full stack at Supacart ·{" "}
-          <span className="font-display italic text-foreground">
-            Leading
-          </span>{" "}
-          SupaGym & Mingalar Trip
+          <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-emerald-500" />
+          <span className="truncate">
+            <span className="hidden sm:inline">
+              Backend-focused full stack at Supacart ·{" "}
+            </span>
+            <span className="sm:hidden">At Supacart · </span>
+            <span className="font-display italic text-foreground">
+              Leading
+            </span>{" "}
+            SupaGym &amp; Mingalar Trip
+          </span>
         </motion.div>
 
         <SplitReveal

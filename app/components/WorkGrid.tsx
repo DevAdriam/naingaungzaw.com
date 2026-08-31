@@ -102,11 +102,11 @@ export default function WorkGrid() {
             if (items.length === 0) return null;
             return (
               <div key={g.company}>
-                <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-border">
+                <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-4 mb-8 pb-4 border-b border-border">
                   <h2 className="text-2xl md:text-3xl font-medium tracking-tight">
                     {g.label}
                   </h2>
-                  <span className="text-[12px] uppercase tracking-wider text-muted">
+                  <span className="text-[12px] uppercase tracking-wider text-muted md:text-right">
                     {g.note}
                   </span>
                 </div>
