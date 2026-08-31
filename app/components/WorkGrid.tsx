@@ -2,8 +2,16 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { projects, type Project } from "@/app/lib/data";
 import SplitReveal from "./SplitReveal";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const groups: Array<{ company: Project["company"]; label: string; note: string }> = [
   {
@@ -29,9 +37,62 @@ const groups: Array<{ company: Project["company"]; label: string; note: string }
 ];
 
 export default function WorkGrid() {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!rootRef.current) return;
+      const cards = rootRef.current.querySelectorAll<HTMLElement>("[data-work-card]");
+      const covers = rootRef.current.querySelectorAll<HTMLElement>("[data-work-cover]");
+
+      const batchCleanup = ScrollTrigger.batch(cards, {
+        start: "top 88%",
+        onEnter: (els) =>
+          gsap.fromTo(
+            els,
+            { autoAlpha: 0, y: 40 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.9,
+              stagger: 0.09,
+              ease: "power3.out",
+              overwrite: true,
+            }
+          ),
+      });
+
+      const parallax = Array.from(covers).map((cover) =>
+        gsap.fromTo(
+          cover,
+          { yPercent: -8 },
+          {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: cover,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        )
+      );
+
+      return () => {
+        batchCleanup.forEach((st) => st.kill());
+        parallax.forEach((t) => {
+          t.scrollTrigger?.kill();
+          t.kill();
+        });
+      };
+    },
+    { scope: rootRef }
+  );
+
   return (
     <section className="pt-40 pb-28 md:pt-52 md:pb-36">
-      <div className="mx-auto max-w-6xl px-6">
+      <div ref={rootRef} className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,6 +137,7 @@ export default function WorkGrid() {
                   {items.map((p) => (
                     <article
                       key={p.slug}
+                      data-work-card
                       className="group rounded-2xl border border-border bg-card p-6"
                     >
                       <div
@@ -83,11 +145,12 @@ export default function WorkGrid() {
                       >
                         {p.cover ? (
                           <Image
+                            data-work-cover
                             src={p.cover}
                             alt={p.title}
                             fill
                             sizes="(max-width: 768px) 100vw, 45vw"
-                            className="object-cover"
+                            className="object-cover scale-[1.15]"
                           />
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center px-6">

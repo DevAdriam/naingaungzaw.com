@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { site, jsonLdPerson } from "./lib/site";
+import CursorFollower from "./components/CursorFollower";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,6 +96,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson()) }}
         />
         <div className="grain" aria-hidden />
+        <CursorFollower />
         {children}
       </body>
     </html>

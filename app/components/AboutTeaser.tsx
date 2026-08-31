@@ -5,11 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAge } from "@/app/lib/data";
 import SplitReveal from "./SplitReveal";
+import CountUp from "./CountUp";
 
 const stats = [
-  { label: "Productions", value: "8" },
-  { label: "Products I lead", value: "2" },
-  { label: "Years shipping", value: "2+" },
+  { label: "Productions", value: 8, suffix: "" },
+  { label: "Products I lead", value: 2, suffix: "" },
+  { label: "Years shipping", value: 2, suffix: "+" },
 ];
 
 export default function AboutTeaser() {
@@ -79,9 +80,11 @@ export default function AboutTeaser() {
           <div className="mt-10 grid grid-cols-3 gap-6 max-w-xl">
             {stats.map((s) => (
               <div key={s.label}>
-                <div className="text-3xl md:text-4xl font-display italic">
-                  {s.value}
-                </div>
+                <CountUp
+                  end={s.value}
+                  suffix={s.suffix}
+                  className="block text-3xl md:text-4xl font-display italic"
+                />
                 <div className="text-[12px] uppercase tracking-wider text-muted mt-2">
                   {s.label}
                 </div>

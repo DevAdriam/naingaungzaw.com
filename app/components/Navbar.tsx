@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Avatar from "./Avatar";
+import ScrambleText from "./ScrambleText";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -56,7 +57,7 @@ export default function Navbar() {
                   active ? "text-foreground" : "text-muted hover:text-foreground"
                 }`}
               >
-                {l.label}
+                <ScrambleText>{l.label}</ScrambleText>
               </Link>
             );
           })}
