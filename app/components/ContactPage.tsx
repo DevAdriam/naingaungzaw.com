@@ -114,13 +114,22 @@ export default function ContactPage() {
                 heavy backend roles.
               </p>
 
-              <a
-                href={`mailto:${contact.email}`}
-                className="inline-flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-3 text-[14px] font-medium hover:opacity-90 transition-opacity mt-6"
-              >
-                Send me an email
-                <span aria-hidden>→</span>
-              </a>
+              <div className="mt-6 flex flex-col gap-2">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="inline-flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-3 text-[14px] font-medium hover:opacity-90 transition-opacity"
+                >
+                  Send me an email
+                  <span aria-hidden>→</span>
+                </a>
+                <a
+                  href="/cv"
+                  className="inline-flex items-center gap-2 border border-border bg-background rounded-full px-5 py-3 text-[14px] font-medium hover:bg-foreground hover:text-background transition-colors"
+                >
+                  Download CV
+                  <span aria-hidden>↓</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

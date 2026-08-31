@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { projects } from "@/app/lib/data";
+import ProjectCard from "./ProjectCard";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -84,58 +84,13 @@ export default function FeaturedProjects() {
           ref={trackRef}
           className="flex flex-col md:flex-row gap-5 md:gap-6 md:flex-nowrap md:will-change-transform"
         >
-          {featured.map((p) => (
-            <article
+          {featured.map((p, i) => (
+            <div
               key={p.slug}
-              className="group relative rounded-2xl bg-card p-4 md:w-[min(520px,78vw)] md:shrink-0 shadow-[0_1px_2px_rgba(0,0,0,0.03),0_8px_24px_-12px_rgba(0,0,0,0.08)] mx-6 md:mx-0"
+              className="md:w-[min(520px,78vw)] md:shrink-0 mx-6 md:mx-0"
             >
-              <div
-                className={`aspect-[16/10] w-full rounded-lg bg-gradient-to-br ${p.accent} mb-5 overflow-hidden relative`}
-              >
-                {p.cover ? (
-                  <Image
-                    src={p.cover}
-                    alt={p.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 520px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center px-8">
-                    <span className="font-display text-4xl md:text-5xl italic text-foreground/50 text-center">
-                      {p.title.split(" ").slice(0, 2).join(" ")}
-                    </span>
-                  </div>
-                )}
-                <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-[12px] text-white/90 mix-blend-difference z-10">
-                  <span>{p.company}</span>
-                  <span>{p.year}</span>
-                </div>
-              </div>
-
-              <div className="flex items-start justify-between gap-4 mb-3">
-                <h3 className="text-xl font-medium tracking-tight">{p.title}</h3>
-                <span
-                  aria-hidden
-                  className="text-foreground/40 group-hover:translate-x-1 group-hover:text-foreground transition-all"
-                >
-                  →
-                </span>
-              </div>
-              <p className="text-[15px] text-muted leading-relaxed mb-5">
-                {p.blurb}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {p.tags.slice(0, 5).map((t) => (
-                  <span
-                    key={t}
-                    className="text-[11px] uppercase tracking-wider text-muted border border-border rounded-full px-2 py-0.5"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </article>
+              <ProjectCard project={p} index={i} size="lg" />
+            </div>
           ))}
         </div>
       </div>

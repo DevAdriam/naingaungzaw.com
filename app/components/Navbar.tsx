@@ -9,6 +9,7 @@ import ScrambleText from "./ScrambleText";
 const links = [
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
+  { href: "/cv", label: "Resume" },
   { href: "/contact", label: "Contact" },
 ];
 

@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { projects, type Project } from "@/app/lib/data";
 import SplitReveal from "./SplitReveal";
+import ProjectCard from "./ProjectCard";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -43,7 +43,6 @@ export default function WorkGrid() {
     () => {
       if (!rootRef.current) return;
       const cards = rootRef.current.querySelectorAll<HTMLElement>("[data-work-card]");
-      const covers = rootRef.current.querySelectorAll<HTMLElement>("[data-work-cover]");
 
       const batchCleanup = ScrollTrigger.batch(cards, {
         start: "top 88%",
@@ -62,29 +61,8 @@ export default function WorkGrid() {
           ),
       });
 
-      const parallax = Array.from(covers).map((cover) =>
-        gsap.fromTo(
-          cover,
-          { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: "none",
-            scrollTrigger: {
-              trigger: cover,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        )
-      );
-
       return () => {
         batchCleanup.forEach((st) => st.kill());
-        parallax.forEach((t) => {
-          t.scrollTrigger?.kill();
-          t.kill();
-        });
       };
     },
     { scope: rootRef }
@@ -133,79 +111,35 @@ export default function WorkGrid() {
                   </span>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-5">
-                  {items.map((p) => (
-                    <article
-                      key={p.slug}
-                      data-work-card
-                      className="group rounded-2xl border border-border bg-card p-6"
-                    >
-                      <div
-                        className={`aspect-[16/9] w-full rounded-xl bg-gradient-to-br ${p.accent} mb-5 relative overflow-hidden`}
-                      >
-                        {p.cover ? (
-                          <Image
-                            data-work-cover
-                            src={p.cover}
-                            alt={p.title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 45vw"
-                            className="object-cover scale-[1.15]"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 flex items-center justify-center px-6">
-                            <span className="font-display text-3xl md:text-4xl italic text-foreground/50 text-center leading-tight">
-                              {p.title.split(" —")[0]}
-                            </span>
-                          </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {items.map((p, i) => (
+                    <div key={p.slug} data-work-card>
+                      <ProjectCard project={p} index={i}>
+                        {p.highlights.length > 0 && (
+                          <ul className="mt-5 pt-4 border-t border-border text-[13px] text-muted leading-relaxed space-y-1.5">
+                            {p.highlights.map((h) => (
+                              <li key={h} className="pl-4 relative">
+                                <span
+                                  aria-hidden
+                                  className="absolute left-0 top-2 w-1 h-1 rounded-full bg-foreground/40"
+                                />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
                         )}
-                        <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-[11px] text-white/90 mix-blend-difference z-10">
-                          <span>{p.role}</span>
-                          <span>{p.year}</span>
-                        </div>
-                      </div>
-
-                      <h3 className="text-lg font-medium tracking-tight mb-2">
-                        {p.title}
-                      </h3>
-                      <p className="text-[14px] text-muted leading-relaxed mb-4">
-                        {p.blurb}
-                      </p>
-
-                      <ul className="text-[13px] text-muted leading-relaxed space-y-1.5 mb-5">
-                        {p.highlights.map((h) => (
-                          <li key={h} className="pl-4 relative">
-                            <span
-                              aria-hidden
-                              className="absolute left-0 top-2 w-1 h-1 rounded-full bg-foreground/40"
-                            />
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="flex flex-wrap gap-1.5">
-                        {p.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="text-[11px] uppercase tracking-wider text-muted border border-border rounded-full px-2 py-0.5"
+                        {p.link && (
+                          <a
+                            href={p.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-[13px] mt-4 hover:text-foreground text-muted transition-colors"
                           >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-
-                      {p.link && (
-                        <a
-                          href={p.link}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-[13px] mt-5 hover:text-foreground text-muted transition-colors"
-                        >
-                          View repo →
-                        </a>
-                      )}
-                    </article>
+                            View repo →
+                          </a>
+                        )}
+                      </ProjectCard>
+                    </div>
                   ))}
                 </div>
               </div>

@@ -111,6 +111,15 @@ export default function Hero() {
               See selected work
             </Link>
           </Magnetic>
+          <Magnetic>
+            <Link
+              href="/cv"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[14px] font-medium text-muted hover:text-foreground transition-colors"
+            >
+              Download CV
+              <span aria-hidden>↓</span>
+            </Link>
+          </Magnetic>
         </motion.div>
       </div>
     </section>
