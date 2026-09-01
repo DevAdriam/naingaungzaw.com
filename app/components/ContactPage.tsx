@@ -109,9 +109,10 @@ export default function ContactPage() {
                 </span>
               </div>
               <p className="text-[14px] text-muted leading-relaxed">
-                Currently at Visible One as a mid full-stack developer. Open to
-                thoughtful contract work and conversations about system-design
-                heavy backend roles.
+                Currently at Supacart Myanmar Software Solutions as a
+                Backend-Focused Full Stack Developer — leading SupaGym and
+                Mingalar Trip. Open to interesting contract work and
+                conversations about system-design heavy backend roles.
               </p>
 
               <div className="mt-6 flex flex-col gap-2">

@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { getAge } from "@/app/lib/data";
 import SplitReveal from "./SplitReveal";
 import Magnetic from "./Magnetic";
+import HeroBackground from "./HeroBackground";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -45,28 +46,10 @@ export default function Hero() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative pt-40 pb-32 md:pt-52 md:pb-40"
+      className="relative pt-40 pb-32 md:pt-52 md:pb-40 overflow-hidden"
     >
-      <div ref={innerRef} className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[12px] text-muted mb-8 whitespace-nowrap"
-        >
-          <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-emerald-500" />
-          <span className="truncate">
-            <span className="hidden sm:inline">
-              Backend-focused full stack at Supacart ·{" "}
-            </span>
-            <span className="sm:hidden">At Supacart · </span>
-            <span className="font-display italic text-foreground">
-              Leading
-            </span>{" "}
-            SupaGym &amp; Mingalar Trip
-          </span>
-        </motion.div>
-
+      <HeroBackground />
+      <div ref={innerRef} className="relative z-10 mx-auto max-w-6xl px-6">
         <SplitReveal
           as="h1"
           splitBy="lines"
@@ -109,18 +92,10 @@ export default function Hero() {
             </Link>
           </Magnetic>
           <Magnetic>
-            <Link
-              href="/work"
-              className="inline-flex items-center gap-2 border border-border bg-card rounded-full px-5 py-3 text-[14px] font-medium hover:bg-foreground hover:text-background transition-colors"
-            >
-              See selected work
-            </Link>
-          </Magnetic>
-          <Magnetic>
             <a
               href="/naing-aung-zaw-cv.pdf"
               download="naing-aung-zaw-cv.pdf"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[14px] font-medium text-muted hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-2 border border-border bg-card rounded-full px-5 py-3 text-[14px] font-medium hover:bg-foreground hover:text-background transition-colors"
             >
               Download CV
               <span aria-hidden>↓</span>

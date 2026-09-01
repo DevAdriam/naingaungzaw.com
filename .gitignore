@@ -38,6 +38,7 @@ yarn-error.log*
 
 # local screenshots (chrome-devtools captures)
 /.screenshots/
+/.tmp/
 
 # typescript
 *.tsbuildinfo
