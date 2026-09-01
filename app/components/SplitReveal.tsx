@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ElementType, type ReactNode } from "react";
+import { createElement, useRef, type ElementType, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -80,10 +80,5 @@ export default function SplitReveal({
     { scope: ref, dependencies: [splitBy, stagger, duration, delay, start, once] }
   );
 
-  const RefTag = Tag as ElementType;
-  return (
-    <RefTag ref={ref} className={className}>
-      {children}
-    </RefTag>
-  );
+  return createElement(Tag, { ref, className }, children);
 }
