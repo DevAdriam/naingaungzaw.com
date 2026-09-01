@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { site, jsonLdPerson } from "./lib/site";
 import CursorFollower from "./components/CursorFollower";
 
@@ -98,6 +99,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="grain" aria-hidden />
         <CursorFollower />
         {children}
+        <Analytics />
       </body>
     </html>
   );
