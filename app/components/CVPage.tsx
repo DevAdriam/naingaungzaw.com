@@ -25,7 +25,7 @@ export default function CVPage() {
   return (
     <div className="bg-background text-foreground print:bg-white">
       <div className="mx-auto max-w-4xl px-6 pt-32 pb-16 print:pt-0 print:pb-0 print:px-0 print:max-w-none">
-        <div className="print:hidden mb-10 flex flex-wrap items-center justify-between gap-4">
+        <div className="print:hidden mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <p className="text-[12px] uppercase tracking-[0.15em] text-muted mb-2">
               CV / Resume
@@ -34,18 +34,28 @@ export default function CVPage() {
               A one-page snapshot of what I&apos;ve shipped.
             </h1>
             <p className="mt-3 text-[15px] text-muted max-w-xl leading-relaxed">
-              Use the button to save this page as a PDF. Everything here is
+              Download the PDF or print this page directly. Everything here is
               generated from the same source that powers the rest of the site.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={onPrint}
-            className="inline-flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-3 text-[14px] font-medium hover:opacity-90 transition-opacity"
-          >
-            Print / Save as PDF
-            <span aria-hidden>↓</span>
-          </button>
+          <div className="flex flex-wrap gap-2 shrink-0">
+            <a
+              href="/naing-aung-zaw-cv.pdf"
+              download="naing-aung-zaw-cv.pdf"
+              className="inline-flex items-center gap-2 bg-foreground text-background rounded-full px-5 py-3 text-[14px] font-medium hover:opacity-90 transition-opacity"
+            >
+              Download PDF
+              <span aria-hidden>↓</span>
+            </a>
+            <button
+              type="button"
+              onClick={onPrint}
+              className="inline-flex items-center gap-2 border border-border bg-card rounded-full px-5 py-3 text-[14px] font-medium hover:bg-foreground hover:text-background transition-colors"
+            >
+              Print
+              <span aria-hidden>⎙</span>
+            </button>
+          </div>
         </div>
 
         <article

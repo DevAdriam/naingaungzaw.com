@@ -123,7 +123,8 @@ export default function ContactPage() {
                   <span aria-hidden>→</span>
                 </a>
                 <a
-                  href="/cv"
+                  href="/naing-aung-zaw-cv.pdf"
+                  download="naing-aung-zaw-cv.pdf"
                   className="inline-flex items-center gap-2 border border-border bg-background rounded-full px-5 py-3 text-[14px] font-medium hover:bg-foreground hover:text-background transition-colors"
                 >
                   Download CV

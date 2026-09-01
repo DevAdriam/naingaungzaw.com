@@ -1,14 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 export default function CursorFollower() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(pointer: fine)");
+    setEnabled(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setEnabled(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
@@ -23,6 +33,7 @@ export default function CursorFollower() {
     let shown = false;
 
     const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       if (!shown) {
         shown = true;
         gsap.to([dot, ring], { opacity: 1, duration: 0.3 });
@@ -48,6 +59,7 @@ export default function CursorFollower() {
     };
 
     const onOver = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       const target = (e.target as HTMLElement).closest?.(
         "a, button, [data-cursor-hover]"
       );
@@ -68,20 +80,22 @@ export default function CursorFollower() {
       window.removeEventListener("pointerover", onOver);
       document.removeEventListener("pointerleave", onLeave);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <>
       <div
         ref={ringRef}
         aria-hidden
-        className="fixed left-0 top-0 w-9 h-9 rounded-full border border-foreground/30 pointer-events-none z-[100]"
+        className="fixed left-0 top-0 w-9 h-9 rounded-full border border-foreground/30 pointer-events-none opacity-0 z-[100]"
         style={{ willChange: "transform" }}
       />
       <div
         ref={dotRef}
         aria-hidden
-        className="fixed left-0 top-0 w-1.5 h-1.5 rounded-full bg-foreground pointer-events-none z-[100]"
+        className="fixed left-0 top-0 w-1.5 h-1.5 rounded-full bg-foreground pointer-events-none opacity-0 z-[100]"
         style={{ willChange: "transform" }}
       />
     </>

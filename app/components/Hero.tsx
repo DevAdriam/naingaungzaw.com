@@ -117,13 +117,14 @@ export default function Hero() {
             </Link>
           </Magnetic>
           <Magnetic>
-            <Link
-              href="/cv"
+            <a
+              href="/naing-aung-zaw-cv.pdf"
+              download="naing-aung-zaw-cv.pdf"
               className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-[14px] font-medium text-muted hover:text-foreground transition-colors"
             >
               Download CV
               <span aria-hidden>↓</span>
-            </Link>
+            </a>
           </Magnetic>
         </motion.div>
       </div>
